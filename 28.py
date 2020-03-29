@@ -30,5 +30,14 @@ if __name__ == '__main__':
 
 
 """
-register
+输出结果
+running register(<function f1 at 0x0000019339D133A0>)
+running register(<function f2 at 0x0000019339D13040>)
+running main()
+registry -> [<function f1 at 0x0000019339D133A0>, <function f2 at 0x0000019339D13040>]
+running f1()
+running f2()
+running f3()
+
+
 """
