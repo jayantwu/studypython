@@ -1,3 +1,4 @@
+# coding=utf-8
 import re
 data = 'Thu Feb 15 17:46:04 2007::uzifzf@dpyivihw.gov::1171590364-6-8'
 patt = '^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)'
@@ -33,6 +34,12 @@ print(re.match(r'([a-zA-Z]+)( )([a-zA-Z]+)', 'Katy Parry').group())
 
 print(re.match(r'\d+([a-zA-Z ]+)', '1180 Bordeaux Drive').group())
 print(re.match(r'\d+([a-zA-Z ]+)', '3120 De la Cruz Boulevard').group())
+
+
+m7 = re.sub('X', 'Mr. Smith', 'attn: X\n\nDear X,\n')
+print(m7)
+##X的地方用Mr.  Smith替换
+
 ##############
 ################exercise time###################
 """
