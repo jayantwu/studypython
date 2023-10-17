@@ -1,0 +1,13 @@
+# test j2 
+
+#def do_basketball():
+#    print("BASKETBALL")
+#    print("Basketball")
+# autogen !!! dont modify!!!
+
+
+{% for item in sports %}
+def do_{{ item }}():
+    print("{{ item | upper }}")
+    print("{{ item | capitalize }}")
+{% endfor %}

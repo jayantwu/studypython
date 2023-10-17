@@ -1,0 +1,19 @@
+{
+    "people": [
+        {
+            "name": "Joe",
+            "age" : 15,
+            "sport": "basketall"
+        },
+        {
+            "name": "lily",
+            "age": 14,
+            "sport": "football"
+        },
+        {
+            "name": "jerry",
+            "age": 16,
+            "sport": "tennies"
+        }
+    ]
+}

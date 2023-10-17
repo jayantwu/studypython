@@ -1,0 +1,15 @@
+# test j2 
+
+#def do_basketball():
+#    print("BASKETBALL")
+#    print("Basketball")
+# autogen !!! dont modify!!!
+
+
+{% for people in name_sports %}
+{% set name = people["name"] %}
+{% set sport = people["sport"] %}
+def {{ name }}_like_{{ sport }}():
+    print("{{ sport | upper }}")
+    print("{{ sport | capitalize }}")
+{% endfor %}
