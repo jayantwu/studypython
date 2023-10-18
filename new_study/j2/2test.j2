@@ -1,0 +1,11 @@
+// Version 0.1, auto generated at {{ now }}
+{% for name in names %}
+{% if name == 'ella'%}
+{% continue %}
+{% endif %}
+{% if age[name] >=  18 %}
+my name is {{ name }}, I like Basketball
+{% else %}
+    my name is {{ name }}, I dont like Basketball
+{% endif %}
+{% endfor %}
