@@ -3,6 +3,11 @@ from my_global import g_direct
 
 
 def file_reader0(filename:str):
+    """file reader
+
+    Args:
+        filename (str): input is file path
+    """
     with open(filename, 'r') as f:
         # for line in f:
         #     print(line)
@@ -10,6 +15,14 @@ def file_reader0(filename:str):
         print(lines)
 
 def json_process(filename:str):
+    """json process func
+
+    Args:
+        filename (str): file path
+
+    Returns:
+        _type_: alwalys return true
+    """ 
     with open(filename, 'w') as f:
         json.dump(g_direct, f, indent=4)
 
@@ -30,6 +43,7 @@ def json_process(filename:str):
                 for student in v:
                     print(student)
             #print(v)
+        return True
 
 def test_dict_jsons_conver():
     dict = {"name": "Ally", "age": 15}
