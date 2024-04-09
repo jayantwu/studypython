@@ -1,36 +1,41 @@
 import click
 
 @click.group()
-def main():
+def cli():
     pass
 
 
-@click.group()
-def set():
+@click.group(invoke_without_command=True, name='my_set')
+@click.pass_context
+def set(ctx):
     pass
 
 
 @set.command
 @click.option("--name", type=str,  help="input your name")
-def show(name):
+@click.pass_context
+def show(ctx, name):
     click.echo(f"your name is {name}")
 
 @set.command
 @click.option("-n", "--num",  type=str,  help="input a num")
-def show2(num):
+@click.pass_context
+def show2(ctx, num):
     click.echo(f"num = {num}")
 
-@click.group()
-def get():
+@click.group(invoke_without_command=True, name='my_get')
+@click.pass_context
+def get(ctx):
     pass
 
 @get.command
 @click.option("--id", type=int,  help="input your id")
-def show_id(id):
+@click.pass_context
+def show_id(ctx, id):
     click.echo(f"id is {id}")
 
-main.add_command(set)
-main.add_command(get)
+cli.add_command(set)
+cli.add_command(get)
 
 if __name__ == "__main__":
-    main()
+    cli()
