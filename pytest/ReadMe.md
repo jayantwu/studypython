@@ -8,7 +8,16 @@
    `pytest -s path/to/test_file.py` 使用 -s 选项即可
 
 
+3. 在conftest.py 中定义了一个这个函数 ， 在自己的测试文件中也定义了， 怎么选择
+具体来说，`pytest` 通过以下方式选择 `pytest_generate_tests` 函数：
 
+1. **当前测试文件中的 `pytest_generate_tests` 函数**：如果在当前测试文件中定义了 `pytest_generate_tests` 函数，`pytest` 会优先使用这个函数来生成测试用例。
+
+2. **`conftest.py` 文件中的 `pytest_generate_tests` 函数**：如果当前测试文件中没有定义 `pytest_generate_tests` 函数，`pytest` 会向上查找最近的 `conftest.py` 文件，并使用其中定义的 `pytest_generate_tests` 函数。
+
+3. **多个 `conftest.py` 文件中的 `pytest_generate_tests` 函数**：如果有多个 `conftest.py` 文件，`pytest` 会根据目录层级，从测试文件所在目录开始，逐层向上查找，直到找到一个定义了 `pytest_generate_tests` 函数的 `conftest.py` 文件。
+
+这种机制允许你在不同层级定义不同的 `pytest_generate_tests` 函数，从而实现灵活的测试用例生成策略。
 
 
 
@@ -95,3 +104,50 @@ fixture 默认的scope是什么？
 2. **class**: 在每个测试类中调用一次，即在类中所有测试方法共享同一个 fixture 实例。
 3. **module**: 在每个模块中调用一次，即在模块中所有测试函数共享同一个 fixture 实例。
 4. **session**: 在整个测试会话中调用一次，即所有测试函数共享同一个 fixture 实例。
+
+
+examples
+
+```python
+import pytest
+
+
+@pytest.fixture(params=[0, 1, pytest.param(2, marks=pytest.mark.skip)])
+def data_set(request):
+    return request.param
+
+
+def test_data(data_set):
+    pass
+```
+
+分析
+- `@pytest.fixture`: 这是一个装饰器，用于将函数标记为fixture。
+- `params=[0, 1, pytest.param(2, marks=pytest.mark.skip)]`: `params`参数指定了要传递给fixture的参数列表。在这个例子中，参数列表包含三个值：`0`、`1` 和 `2`。其中，`2` 被标记为 `pytest.mark.skip`，这意味着在运行测试时，使用参数 `2` 的测试会被跳过。
+- `request`: 这是一个内置的fixture，提供了对当前测试请求的访问，包括传递给fixture的参数。
+- `return request.param`: 返回当前参数值。
+
+### 2. 测试函数 `test_data`
+```python
+def test_data(data_set):
+    pass
+```
+- `def test_data(data_set)`: 定义了一个测试函数 `test_data`，它使用 `data_set` fixture 作为参数。
+- `pass`: 这是一个占位符语句，表示什么也不做。可以在这里添加实际的测试逻辑。
+
+### 执行过程
+当运行测试时，Pytest 会为每个参数值单独运行 `test_data` 测试函数。
+
+1. **第一次运行**:
+   - `data_set` 参数为 `0`。
+   - `data_set` fixture 返回 `0`。
+   - `test_data` 函数接收 `0` 作为参数并执行（什么也不做，因为是 `pass`）。
+
+2. **第二次运行**:
+   - `data_set` 参数为 `1`。
+   - `data_set` fixture 返回 `1`。
+   - `test_data` 函数接收 `1` 作为参数并执行（什么也不做，因为是 `pass`）。
+
+3. **第三次运行**:
+   - `data_set` 参数为 `2`。
+   - 由于 `2` 被标记为 `pytest.mark.skip`，Pytest 会跳过这个测试。
