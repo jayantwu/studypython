@@ -1,5 +1,6 @@
+import rich_common as rich_cmn
 from rich.table import Table
-from rich.console import Console
+
 rich_tbl = Table('Name', 'Age', 'hobby')
 
 rich_tbl.title = ' people'
@@ -12,8 +13,7 @@ rich_tbl.add_section()
 rich_tbl.add_row('lily', '44', 'cooking')
 
 
-console = Console()
-console.print(rich_tbl)
+rich_cmn.show(rich_tbl)
 
 
 '''
