@@ -3,7 +3,7 @@
 if [ $# -ne 0 ]; then
     docker run \
     -v /Users/wujiayang/wujiayang/STUDY/docker/study/wujiayang/local_jenkins/jenkins_home/workspace/github_project/pytest_auto/:/var/wujy/ debian-wjy-0207:2.0-cling \
-    bash -c "pip3 install pytest && cd /var/wujy/studypython/pytest/ && $@"
+    bash -c "pip3 install pytest && cd /var/wujy/pytest/ && $@"
 else
     echo "need present prama.."
 fi
