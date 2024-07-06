@@ -1,6 +1,6 @@
 import os
 import pytest
-from study.wujiayang.studypython.pytest.conftest import *
+#from study.wujiayang.studypython.pytest.conftest import *
 
 
 @pytest.mark.usefixtures("cleandir") #放在这里， 而不用放在 测试函数中， 作为一个参数
